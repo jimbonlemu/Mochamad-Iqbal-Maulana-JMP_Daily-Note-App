@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.jimbonlemu.aplikasicatatanharian.R
 
-class NoteAdapter(private var notes: List<NoteData>, private val itemClickListener: OnItemClickListener) :
+class NoteAdapter(
+    private var notes: List<NoteData>,
+    private val itemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     fun updateData(newNotes: List<NoteData>) {
@@ -17,7 +20,8 @@ class NoteAdapter(private var notes: List<NoteData>, private val itemClickListen
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_note_list, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycle_note_list, parent, false)
         return NoteViewHolder(view)
     }
 
@@ -51,8 +55,8 @@ class NoteAdapter(private var notes: List<NoteData>, private val itemClickListen
 
         fun bind(note: NoteData) {
             titleNoteList.text = note.noteTitle
-            noteCreatedDate.text = note.noteCreatedAt
-            noteCreatedTime.text = note.noteUpdatedAt
+            noteCreatedDate.text = note.noteCreatedAt.substring(0,10)
+            noteCreatedTime.text = note.noteCreatedAt.substring(11, 16)
         }
     }
 }

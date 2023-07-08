@@ -31,7 +31,6 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
         // Mendapatkan semua catatan dari database
         val notes = databaseHelper.getAllNoteData()
-
         noteAdapter = NoteAdapter(notes, this)
         recyclerViewNotes.adapter = noteAdapter
     }
@@ -83,6 +82,7 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
     private fun updateNoteList() {
         val updatedNotes = databaseHelper.getAllNoteData()
+        println(updatedNotes)
         noteAdapter.updateData(updatedNotes)
         noteAdapter.notifyDataSetChanged()
     }

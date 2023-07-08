@@ -1,3 +1,5 @@
+// NoteAdapter.kt
+
 package com.jimbonlemu.aplikasicatatanharian.adapter
 
 import android.view.LayoutInflater
@@ -7,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.jimbonlemu.aplikasicatatanharian.R
 
-
-class NoteAdapter(private val notes: List<NoteData>, private val itemClickListener: OnItemClickListener) :
+class NoteAdapter(private var notes: List<NoteData>, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+
+    fun updateData(newNotes: List<NoteData>) {
+        notes = newNotes
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_note_list, parent, false)

@@ -2,6 +2,7 @@
 
 package com.jimbonlemu.aplikasicatatanharian
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -26,13 +27,25 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
         recyclerViewNotes = findViewById(R.id.noteListRecyclerView)
         recyclerViewNotes.layoutManager = LinearLayoutManager(this)
 
-        // Inisialisasi objek DatabaseHelper
         databaseHelper = GetDBhelp(this)
 
-        // Mendapatkan semua catatan dari database
-        val notes = databaseHelper.getAllNoteData()
+        val notes = databaseHelper.getAllNoteData().toMutableList()
         noteAdapter = NoteAdapter(notes, this)
         recyclerViewNotes.adapter = noteAdapter
+    }
+
+    override fun onItemLongPress(note: NoteData) {
+        AlertDialog.Builder(this)
+            .setTitle("Peringatan")
+            .setMessage("Apakah anda yakin ingin menghapus catatan ?")
+            .setPositiveButton("Hapus") { dialog, _ ->
+                deleteNoteFromDatabase(note)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onResume() {
@@ -47,8 +60,6 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(note: NoteData) {
-        // Implementasikan perubahan yang diinginkan saat item diklik
-        // Contoh: Navigasi ke NoteScreen dengan membawa data catatan yang diklik
         Get.to(this, NoteScreen::class.java)
     }
 
@@ -64,18 +75,22 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Jangan lupa untuk menutup DatabaseHelper saat Activity dihancurkan
         databaseHelper.close()
     }
 
+    private fun deleteNoteFromDatabase(note: NoteData) {
+        databaseHelper.deleteNoteData(note.noteId)
+        val updatedNotes = databaseHelper.getAllNoteData().toMutableList()
+        noteAdapter.updateData(updatedNotes)
+        noteAdapter.notifyDataSetChanged()
+    }
+
+
     private fun addNewNoteToDatabase(noteData: NoteData) {
-        // Tambahkan catatan baru ke database menggunakan databaseHelper
         databaseHelper.addNoteData(noteData)
 
-        // Dapatkan semua catatan dari database setelah penambahan data
         val updatedNotes = databaseHelper.getAllNoteData()
 
-        // Perbarui data pada adapter dan beri tahu RecyclerView untuk diperbarui
         noteAdapter.updateData(updatedNotes)
         noteAdapter.notifyDataSetChanged()
     }

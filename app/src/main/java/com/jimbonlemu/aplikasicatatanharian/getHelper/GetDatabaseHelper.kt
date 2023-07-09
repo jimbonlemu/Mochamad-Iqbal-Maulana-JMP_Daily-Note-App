@@ -9,7 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.jimbonlemu.aplikasicatatanharian.adapter.NoteData
 
 
-class GetDBhelp(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class GetDBhelp(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_NAME = "notes.db"
@@ -40,6 +41,15 @@ class GetDBhelp(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db.execSQL(dropTableQuery)
         onCreate(db)
     }
+
+    // Metode untuk menghapus catatan berdasarkan ID
+    fun deleteNoteData(id: String) {
+        val db = writableDatabase
+        val selection = "$COLUMN_ID = ?"
+        val selectionArgs = arrayOf(id)
+        db.delete(TABLE_NAME, selection, selectionArgs)
+    }
+
 
     // Metode untuk menambahkan catatan baru
     fun addNoteData(noteData: NoteData) {
@@ -83,6 +93,7 @@ class GetDBhelp(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         }
         return noteList
     }
+
 
 }
 

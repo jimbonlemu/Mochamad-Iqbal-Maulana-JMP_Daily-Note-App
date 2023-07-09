@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.EditText
 import com.google.android.material.button.MaterialButton
 import com.jimbonlemu.aplikasicatatanharian.adapter.NoteData
+import com.jimbonlemu.aplikasicatatanharian.getHelper.Get
 import com.jimbonlemu.aplikasicatatanharian.getHelper.GetDBhelp
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +41,6 @@ class NoteScreen : AppCompatActivity() {
             saveNote()
         }
 
-        // ...
     }
 
 
@@ -57,9 +57,7 @@ class NoteScreen : AppCompatActivity() {
         val noteData = NoteData("", title, content, createdAt, createdAt)
         databaseHelper.addNoteData(noteData)
 
-        // Tambahkan logika untuk menampilkan notifikasi atau pesan berhasil disimpan
-
-        onBackPressed()
+        Get.back(this)
     }
 
     private fun onSubmitNote(){

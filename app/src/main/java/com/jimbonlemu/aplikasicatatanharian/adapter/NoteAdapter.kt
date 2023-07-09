@@ -62,7 +62,7 @@ class NoteAdapter(
                         .setTitle("Delete Note")
                         .setMessage("Are you sure you want to delete this note?")
                         .setPositiveButton("Delete") { _, _ ->
-                            // Call the deleteNoteAtPosition method
+
                             deleteNoteAtPosition(position)
                         }
                         .setNegativeButton("Cancel", null)

@@ -22,7 +22,8 @@ class NoteAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_note_list, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycle_note_list, parent, false)
         return NoteViewHolder(view)
     }
 
@@ -60,7 +61,7 @@ class NoteAdapter(
                     val clickedNote = notes[position]
                     val alertDialog = AlertDialog.Builder(itemView.context)
                         .setTitle("Peringatan")
-                        .setMessage("Apakah anda yakin ingin menghapus note ? ")
+                        .setMessage("Apakah anda yakin ingin menghapus note  ? " + "' " + titleNoteList.text.toString() + " '")
                         .setPositiveButton("Hapus") { _, _ ->
 
                             deleteNoteAtPosition(position)

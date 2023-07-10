@@ -60,13 +60,20 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(note: NoteData) {
-        Get.to(this, NoteScreen::class.java)
+        Get.to(
+            this,
+            NoteScreen::class.java,
+            Pair("id", note.noteId),
+            Pair("title", note.noteTitle),
+            Pair("content", note.noteContent),
+            Pair("edit", "true")
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add_note -> {
-                Get.to(this, NoteScreen::class.java)
+                Get.to(this, NoteScreen::class.java, Pair("edit","false"))
                 true
             }
             else -> super.onOptionsItemSelected(item)

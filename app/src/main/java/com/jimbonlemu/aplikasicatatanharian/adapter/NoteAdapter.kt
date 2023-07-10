@@ -59,13 +59,13 @@ class NoteAdapter(
                 if (position != RecyclerView.NO_POSITION) {
                     val clickedNote = notes[position]
                     val alertDialog = AlertDialog.Builder(itemView.context)
-                        .setTitle("Delete Note")
-                        .setMessage("Are you sure you want to delete this note?")
-                        .setPositiveButton("Delete") { _, _ ->
+                        .setTitle("Peringatan")
+                        .setMessage("Apakah anda yakin ingin menghapus note ? ")
+                        .setPositiveButton("Hapus") { _, _ ->
 
                             deleteNoteAtPosition(position)
                         }
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton("Batal", null)
                         .create()
                     alertDialog.show()
                 }

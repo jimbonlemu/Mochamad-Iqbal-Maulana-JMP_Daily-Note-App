@@ -94,6 +94,19 @@ class GetDBhelp(context: Context) :
         return noteList
     }
 
+    fun updateNoteData(id: String, updatedNoteData: NoteData) {
+        val db = writableDatabase
+        val contentValues = ContentValues().apply {
+            put(COLUMN_TITLE, updatedNoteData.noteTitle)
+            put(COLUMN_CONTENT, updatedNoteData.noteContent)
+            put(COLUMN_UPDATED_AT, updatedNoteData.noteUpdatedAt)
+        }
+        val selection = "$COLUMN_ID = ?"
+        val selectionArgs = arrayOf(id)
+        db.update(TABLE_NAME, contentValues, selection, selectionArgs)
+    }
+
+
 
 }
 

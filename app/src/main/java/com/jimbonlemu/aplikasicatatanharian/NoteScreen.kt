@@ -15,36 +15,59 @@ class NoteScreen : AppCompatActivity() {
     private lateinit var titleHead: String
     private lateinit var databaseHelper: GetDBhelp
 
-    private lateinit var noteTitle : EditText
-    private lateinit var noteContent:EditText
-    private lateinit var btnSaveNote:MaterialButton
+    private lateinit var noteTitle: EditText
+    private lateinit var noteContent: EditText
+    private lateinit var btnSaveNote: MaterialButton
 
+    private var isEdit: String = "false"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.note_screen)
 
-        titleHead = "Tambah Catatan Baru"
-
         noteTitle = findViewById(R.id.titleNote)
         noteContent = findViewById(R.id.contentNote)
         btnSaveNote = findViewById(R.id.btnSaveNote)
+        isEdit = "${Get.arguments("edit")}"
 
+        databaseHelper = GetDBhelp(this)
+
+
+
+        if (isEdit == "true") {
+            titleHead = "Ubah Catatan"
+            noteTitle.setText(Get.arguments("title"))
+            noteContent.setText(Get.arguments("content"))
+
+            btnSaveNote.text = "Simpan Perubahan"
+            btnSaveNote.setOnClickListener {
+                updateNote()
+            }
+
+        } else {
+            titleHead = "Tambah Catatan Baru"
+            btnSaveNote.text = "Simpan catatan"
+            noteTitle.setText("")
+            noteContent.setText("")
+            btnSaveNote.setOnClickListener {
+                saveNote()
+            }
+
+        }
 
         supportActionBar?.apply {
             title = titleHead
             setDisplayHomeAsUpEnabled(true)
         }
-        databaseHelper = GetDBhelp(this)
 
-        btnSaveNote.setOnClickListener {
-            saveNote()
-        }
 
     }
 
 
     override fun onSupportNavigateUp(): Boolean {
+        if (isEdit == "true") {
+            resetNoteData()
+        }
         onBackPressed()
         return true
     }
@@ -60,13 +83,32 @@ class NoteScreen : AppCompatActivity() {
         Get.back(this)
     }
 
-    private fun onSubmitNote(){
+    private fun updateNote() {
+        val noteId = "${Get.arguments("id")}"
 
+        val updatedNoteData = NoteData(
+            noteId,
+            noteTitle.text.toString(),
+            noteContent.text.toString(),
+            getCurrentDateTime(),
+            getCurrentDateTime(),
+        )
+        databaseHelper.updateNoteData(noteId, updatedNoteData)
+        Get.back(this)
     }
+
 
     private fun getCurrentDateTime(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val date = Date()
         return dateFormat.format(date)
+    }
+
+
+    private fun resetNoteData() {
+        titleHead = ""
+        noteTitle.text.clear()
+        noteContent.text.clear()
+        isEdit = "false"
     }
 }

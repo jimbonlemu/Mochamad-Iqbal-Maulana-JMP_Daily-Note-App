@@ -8,7 +8,8 @@ import com.jimbonlemu.aplikasicatatanharian.adapter.NoteData
 import com.jimbonlemu.aplikasicatatanharian.getHelper.Get
 import com.jimbonlemu.aplikasicatatanharian.getHelper.GetDBhelp
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class NoteScreen : AppCompatActivity() {
 
@@ -66,6 +67,7 @@ class NoteScreen : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         if (isEdit == "true") {
+            updateNote()
             resetNoteData()
         }
         onBackPressed()

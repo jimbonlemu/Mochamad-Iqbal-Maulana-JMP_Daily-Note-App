@@ -1,7 +1,5 @@
 package com.jimbonlemu.aplikasicatatanharian.getHelper
 
-
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

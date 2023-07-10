@@ -1,5 +1,3 @@
-// ListNoteScreen.kt
-
 package com.jimbonlemu.aplikasicatatanharian
 
 import android.app.AlertDialog

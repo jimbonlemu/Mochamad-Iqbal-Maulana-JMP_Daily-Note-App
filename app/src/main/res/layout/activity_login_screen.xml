@@ -17,25 +17,25 @@
         android:src="@drawable/img_splashscreen" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayout"
+        android:id="@+id/usernameInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logoImageView"
         android:layout_marginTop="16dp"
-        android:hint="Email">
+        android:hint="Username">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailInputLayout"
+        android:layout_below="@id/usernameInputLayout"
         android:layout_marginTop="8dp"
         android:hint="Password">
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordInputLayout"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/purple_500"
         android:textColor="@android:color/white"
         android:text="Login" />
 

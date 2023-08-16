@@ -1,5 +1,6 @@
 package com.jimbonlemu.aplikasicatatanharian
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -19,8 +20,10 @@ class NoteScreen : AppCompatActivity() {
     private lateinit var noteTitle: EditText
     private lateinit var noteContent: EditText
     private lateinit var btnSaveNote: MaterialButton
+    private lateinit var notePrior : EditText
 
     private var isEdit: String = "false"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,7 @@ class NoteScreen : AppCompatActivity() {
         }
 
         noteTitle = findViewById(R.id.titleNote)
+        notePrior = findViewById(R.id.notePrior)
         noteContent = findViewById(R.id.contentNote)
         btnSaveNote = findViewById(R.id.btnSaveNote)
         isEdit = "${Get.arguments("edit")}"
@@ -42,6 +46,7 @@ class NoteScreen : AppCompatActivity() {
         if (isEdit == "true") {
             titleHead = "Ubah Catatan"
             noteTitle.setText(Get.arguments("title"))
+            notePrior.setText(Get.arguments("prior"))
             noteContent.setText(Get.arguments("content"))
 
             btnSaveNote.text = "Simpan Perubahan"
@@ -53,6 +58,7 @@ class NoteScreen : AppCompatActivity() {
             titleHead = "Tambah Catatan Baru"
             btnSaveNote.text = "Simpan catatan"
             noteTitle.setText("")
+            notePrior.setText("")
             noteContent.setText("")
             btnSaveNote.setOnClickListener {
                 saveNote()
@@ -80,10 +86,11 @@ class NoteScreen : AppCompatActivity() {
 
     private fun saveNote() {
         val title = noteTitle.text.toString()
+        val prior = notePrior.text.toString()
         val content = noteContent.text.toString()
         val createdAt = getCurrentDateTime()
 
-        val noteData = NoteData("", title, content, createdAt, createdAt)
+        val noteData = NoteData("", title,prior, content, createdAt, createdAt)
         databaseHelper.addNoteData(noteData)
 
         Get.back(this)
@@ -95,6 +102,7 @@ class NoteScreen : AppCompatActivity() {
         val updatedNoteData = NoteData(
             noteId,
             noteTitle.text.toString(),
+            notePrior.text.toString(),
             noteContent.text.toString(),
             getCurrentDateTime(),
             getCurrentDateTime(),

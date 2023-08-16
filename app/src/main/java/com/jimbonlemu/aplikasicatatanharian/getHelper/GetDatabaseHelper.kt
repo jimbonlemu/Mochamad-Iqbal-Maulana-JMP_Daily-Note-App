@@ -16,6 +16,7 @@ class GetDBhelp(context: Context) :
         private const val TABLE_NAME = "notes"
         private const val COLUMN_ID = "id"
         private const val COLUMN_TITLE = "title"
+        private const val COLUMN_PRIOR = "prior"
         private const val COLUMN_CONTENT = "content"
         private const val COLUMN_CREATED_AT = "created_at"
         private const val COLUMN_UPDATED_AT = "updated_at"
@@ -26,6 +27,7 @@ class GetDBhelp(context: Context) :
             CREATE TABLE $TABLE_NAME (
                 $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_TITLE TEXT,
+                $COLUMN_PRIOR TEXT,
                 $COLUMN_CONTENT TEXT,
                 $COLUMN_CREATED_AT TEXT,
                 $COLUMN_UPDATED_AT TEXT
@@ -53,6 +55,7 @@ class GetDBhelp(context: Context) :
             val contentValues = ContentValues().apply {
                 put(COLUMN_TITLE, noteData.noteTitle)
                 put(COLUMN_CONTENT, noteData.noteContent)
+                put(COLUMN_PRIOR, noteData.notePrior)
                 put(COLUMN_CREATED_AT, noteData.noteCreatedAt)
                 put(COLUMN_UPDATED_AT, noteData.noteUpdatedAt)
             }
@@ -69,6 +72,7 @@ class GetDBhelp(context: Context) :
             if (cursor.moveToFirst()) {
                 val idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID)
                 val titleIndex = cursor.getColumnIndexOrThrow(COLUMN_TITLE)
+                val priorIndex = cursor.getColumnIndexOrThrow(COLUMN_PRIOR)
                 val contentIndex = cursor.getColumnIndexOrThrow(COLUMN_CONTENT)
                 val createdAtIndex = cursor.getColumnIndexOrThrow(COLUMN_CREATED_AT)
                 val updatedAtIndex = cursor.getColumnIndexOrThrow(COLUMN_UPDATED_AT)
@@ -76,10 +80,11 @@ class GetDBhelp(context: Context) :
                 do {
                     val id = cursor.getInt(idIndex)
                     val title = cursor.getString(titleIndex)
+                    val prior = cursor.getString(priorIndex)
                     val content = cursor.getString(contentIndex)
                     val createdAt = cursor.getString(createdAtIndex)
                     val updatedAt = cursor.getString(updatedAtIndex)
-                    val noteData = NoteData(id.toString(), title, content, createdAt, updatedAt)
+                    val noteData = NoteData(id.toString(), title,prior, content, createdAt, updatedAt)
                     noteList.add(noteData)
                 } while (cursor.moveToNext())
             }
@@ -92,6 +97,7 @@ class GetDBhelp(context: Context) :
         val db = writableDatabase
         val contentValues = ContentValues().apply {
             put(COLUMN_TITLE, updatedNoteData.noteTitle)
+            put(COLUMN_PRIOR, updatedNoteData.notePrior)
             put(COLUMN_CONTENT, updatedNoteData.noteContent)
             put(COLUMN_UPDATED_AT, updatedNoteData.noteUpdatedAt)
         }

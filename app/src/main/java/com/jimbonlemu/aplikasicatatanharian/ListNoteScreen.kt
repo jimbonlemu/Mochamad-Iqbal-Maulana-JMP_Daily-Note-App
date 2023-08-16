@@ -1,6 +1,7 @@
 package com.jimbonlemu.aplikasicatatanharian
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -63,6 +64,7 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
             NoteScreen::class.java,
             Pair("id", note.noteId),
             Pair("title", note.noteTitle),
+            Pair("prior", note.notePrior),
             Pair("content", note.noteContent),
             Pair("edit", "true")
         )
@@ -105,6 +107,24 @@ class ListNoteScreen : AppCompatActivity(), NoteAdapter.OnItemClickListener {
         println(updatedNotes)
         noteAdapter.updateData(updatedNotes)
         noteAdapter.notifyDataSetChanged()
+    }
+
+    override fun onBackPressed() {
+        showExitConfirmationDialog()
+    }
+
+    private fun showExitConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Peringatan")
+            .setMessage("Apakah anda yakin ingin keluar?")
+            .setPositiveButton("Keluar") { _: DialogInterface, _: Int ->
+                finish()
+            }
+            .setNegativeButton("Batal") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 

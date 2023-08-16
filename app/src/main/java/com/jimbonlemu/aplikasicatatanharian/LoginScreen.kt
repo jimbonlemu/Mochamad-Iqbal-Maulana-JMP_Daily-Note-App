@@ -9,7 +9,7 @@ import com.jimbonlemu.aplikasicatatanharian.getHelper.Get.GetToast
 
 class LoginScreen : AppCompatActivity() {
 
-    private lateinit var emailEditText: TextInputEditText
+    private lateinit var usernameEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: MaterialButton
 
@@ -17,20 +17,20 @@ class LoginScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
 
-        emailEditText = findViewById(R.id.emailEditText)
+        usernameEditText = findViewById(R.id.usernameEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
 
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
+            val email = usernameEditText.text.toString().trim()
             val password = passwordEditText.text.toString()
 
             if (isValidCredentials(email, password)) {
-                GetToast("Login successful!")
-                Get.off(this, ListNoteScreen::class.java)
+                GetToast("Login Berhasil Gro!")
+                Get.offAll(this, ListNoteScreen::class.java)
 
             } else {
-                GetToast("Invalid credentials. Please try again.")
+                GetToast(" Password atau Username salah")
             }
         }
     }

@@ -7,7 +7,7 @@ import com.jimbonlemu.aplikasicatatanharian.getHelper.Get
 
 class SplashScreen : AppCompatActivity() {
 
-    private val splashTimeout: Long = 3000
+    private val splashTimeout: Long = 5000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)

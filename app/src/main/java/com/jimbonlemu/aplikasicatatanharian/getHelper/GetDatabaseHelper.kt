@@ -40,7 +40,6 @@ class GetDBhelp(context: Context) :
         onCreate(db)
     }
 
-    // Metode untuk menghapus catatan berdasarkan ID
     fun deleteNoteData(id: String) {
         val db = writableDatabase
         val selection = "$COLUMN_ID = ?"
@@ -48,8 +47,6 @@ class GetDBhelp(context: Context) :
         db.delete(TABLE_NAME, selection, selectionArgs)
     }
 
-
-    // Metode untuk menambahkan catatan baru
     fun addNoteData(noteData: NoteData) {
         val db = writableDatabase
         db.use {
@@ -63,7 +60,6 @@ class GetDBhelp(context: Context) :
         }
     }
 
-    // Metode untuk mendapatkan semua catatan
     fun getAllNoteData(): List<NoteData> {
         val noteList = mutableListOf<NoteData>()
         val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_CREATED_AT DESC"

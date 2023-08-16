@@ -14,7 +14,7 @@ class SplashScreen : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-                Get.offAll(this, ListNoteScreen::class.java)
+                Get.offAll(this, LoginScreen::class.java)
             }, splashTimeout
         )
     }

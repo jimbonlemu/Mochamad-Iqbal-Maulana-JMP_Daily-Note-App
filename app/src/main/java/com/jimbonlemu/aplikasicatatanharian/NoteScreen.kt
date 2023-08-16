@@ -26,6 +26,10 @@ class NoteScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.note_screen)
 
+        findViewById<MaterialButton>(R.id.btnAppInfo).setOnClickListener {
+            Get.to(this, AppInfo::class.java)
+        }
+
         noteTitle = findViewById(R.id.titleNote)
         noteContent = findViewById(R.id.contentNote)
         btnSaveNote = findViewById(R.id.btnSaveNote)
